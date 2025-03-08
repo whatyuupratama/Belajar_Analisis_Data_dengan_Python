@@ -1,9 +1,6 @@
-To structure your project README similar to the one you've shared, here's how you can format your **`README.md`** for GitHub, including proper Markdown for the project structure and commands:
+# 🚲 Analisis Sewa Sepeda dari Dataset Bike Sharing 📊
 
-````markdown
-# 🚲 Analisis Sewa Sepeda 📊
-
-Heyy welcome to the **Analisis Sewa Sepeda** project! 🚀
+Heyy welcome to the **Analisis Sewa Sepeda dari Dataset Bike Sharing** project! 🚀
 
 ---
 
@@ -16,7 +13,6 @@ Follow these steps to set up and run the project locally:
 ```bash
 git clone https://github.com/your-username/your-repository.git
 ```
-````
 
 ### 2. Navigate to the Project Directory
 
@@ -90,16 +86,6 @@ streamlit run dashboard/streamlit.py
 - **Data**: CSV files, ZIP extraction
 - **Tools**: Pandas, Matplotlib, Streamlit
 
----
-
-## 📈 Screenshot
-
-Here’s a screenshot of the dashboard:
-
-![Screenshot](https://imgur.com/a/N2XzfGK)
-
----
-
 ## 📚 Learn More
 
 Check out these resources for additional information:
@@ -122,18 +108,12 @@ Contributions are welcome! To contribute:
 
 ---
 
-## 🛡️ License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
----
-
 ## 📧 Contact
 
 Feel free to reach out for support or collaboration:
 
 - **Email**: wahyupratamaa.id@gmail.com
-- **GitHub**: [Your GitHub Profile](https://github.com/your-username)
+- **GitHub**: [Your GitHub Profile](https://github.com/whatyuupratama)
 
 ---
 
@@ -153,10 +133,3 @@ Here’s a summary of the commands you’ll use frequently:
    ```bash
    jupyter notebook Proyek_Analisis_Data.ipynb
    ```
-
-```
-
----
-
-This version follows the structure you've shown, including commands for installing dependencies, running the project, and contributing. It also includes a neat presentation of the project structure with folder hierarchy and provides essential documentation for the user to get started quickly. You can replace the placeholders such as the GitHub link and email with your actual information.
-```
