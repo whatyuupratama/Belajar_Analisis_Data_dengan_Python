@@ -43,7 +43,7 @@ with st.sidebar:
     st.markdown('<p class="sidebar-text">ID Dicoding: wahyupratamaa</p>', unsafe_allow_html=True)
     st.markdown('<p class="sidebar-text">Dibuat: 8 Maret 2025</p>', unsafe_allow_html=True)
 
-    st.markdown("[GitHub Project Link](https://github.com/wahyupratamaa)", unsafe_allow_html=True)
+    st.markdown("[GitHub Project Link](https://github.com/whatyuupratama/Belajar_Analisis_Data_dengan_Python)", unsafe_allow_html=True)
 
 
 
