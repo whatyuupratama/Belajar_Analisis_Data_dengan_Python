@@ -54,10 +54,9 @@ with st.sidebar:
     max_date = day_data['dteday'].max()
     selected_dates = st.date_input("Pilih Rentang Tanggal", [min_date, max_date], min_value=min_date, max_value=max_date)
 
-
+# Filter data based on the selected date range
 filtered_day_data = day_data[(day_data['dteday'] >= pd.to_datetime(selected_dates[0])) & (day_data['dteday'] <= pd.to_datetime(selected_dates[1]))]
 filtered_hour_data = hour_data[(hour_data['dteday'] >= pd.to_datetime(selected_dates[0])) & (hour_data['dteday'] <= pd.to_datetime(selected_dates[1]))]
-
 
 st.write(f"Menampilkan data antara {selected_dates[0]} dan {selected_dates[1]}")
 
@@ -65,19 +64,29 @@ st.write(f"Menampilkan data antara {selected_dates[0]} dan {selected_dates[1]}")
 st.title("Dashboard Analisis Sewa Sepeda dari Dataset Bike Sharing")
 st.write("---")
 
+# Pengaruh Cuaca terhadap Jumlah Sewa Sepeda
+weather_map = {
+    1: "Cerah",
+    2: "Berawan",
+    3: "Hujan"
+}
+filtered_day_data['weathersit'] = filtered_day_data['weathersit'].map(weather_map)
 
-st.subheader("Pengaruh Cuaca terhadap Jumlah Sewa Sepeda")
 plt.figure(figsize=(10, 6))
 sns.barplot(x=filtered_day_data['weathersit'], y=filtered_day_data['cnt'], palette='coolwarm')
 plt.title('Pengaruh Cuaca terhadap Jumlah Sewa Sepeda')
-plt.xlabel('Cuaca')
+plt.xlabel('Cuaca', labelpad=20)
 plt.ylabel('Jumlah Sewa')
 st.pyplot(plt)
 
 st.write("---")
 
+# Jumlah Sewa Sepeda Berdasarkan Hari dalam Seminggu
+filtered_day_data['weekday'] = filtered_day_data['dteday'].dt.dayofweek
+filtered_day_data['weekday'] = filtered_day_data['weekday'].map({
+    0: 'Senin', 1: 'Selasa', 2: 'Rabu', 3: 'Kamis', 4: 'Jumat', 5: 'Sabtu', 6: 'Minggu'
+})
 
-st.subheader("Jumlah Sewa Sepeda Berdasarkan Hari dalam Seminggu")
 plt.figure(figsize=(10, 6))
 sns.barplot(x=filtered_day_data['weekday'], y=filtered_day_data['cnt'], palette='Set2')
 plt.title('Jumlah Sewa Sepeda Berdasarkan Hari dalam Seminggu')
@@ -87,20 +96,29 @@ st.pyplot(plt)
 
 st.write("---")
 
+# Tren Jumlah Sewa Sepeda Berdasarkan Jam dalam Sehari
+def categorize_time(hour):
+    if 5 <= hour < 10:
+        return 'Pagi'
+    elif 10 <= hour < 15:
+        return 'Siang'
+    elif 15 <= hour < 18:
+        return 'Sore'
+    else:
+        return 'Malam'
 
-st.subheader("Tren Jumlah Sewa Sepeda Berdasarkan Jam dalam Sehari")
+filtered_hour_data['kategori_waktu'] = filtered_hour_data['hr'].apply(categorize_time)
+
 plt.figure(figsize=(12, 6))
-sns.lineplot(x=filtered_hour_data['hr'], y=filtered_hour_data['cnt'], marker='o', color='green')
+sns.lineplot(x=filtered_hour_data['kategori_waktu'], y=filtered_hour_data['cnt'], marker='o', color='green')
 plt.title('Jumlah Sewa Sepeda Berdasarkan Waktu dalam Sehari')
-plt.xlabel('Jam dalam Sehari')
+plt.xlabel('Kategori Waktu')
 plt.ylabel('Jumlah Sewa')
-plt.xticks(rotation=45)
 st.pyplot(plt)
 
 st.write("---")
 
-
-st.subheader("Tren Musiman Jumlah Sewa Sepeda Berdasarkan Bulan")
+# Tren Musiman Jumlah Sewa Sepeda Berdasarkan Bulan
 plt.figure(figsize=(12, 6))
 sns.lineplot(x=filtered_hour_data['mnth'], y=filtered_hour_data['cnt'], marker='o', color='blue')
 plt.title('Tren Musiman Jumlah Sewa Sepeda Berdasarkan Bulan')
@@ -111,7 +129,7 @@ st.pyplot(plt)
 
 st.write("---")
 
-
+# Kesimpulan
 kesimpulan = """
 Dari hasil analisis, kita dapat melihat bahwa faktor cuaca, suhu, dan hari dalam seminggu memiliki dampak yang signifikan 
 terhadap jumlah sewa sepeda. Tren musiman juga menunjukkan pola-pola yang dapat dimanfaatkan untuk meningkatkan strategi 
